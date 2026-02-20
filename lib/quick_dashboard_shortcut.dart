@@ -1,17 +1,43 @@
 import 'package:flutter/material.dart';
 
+/// A model describing a single shortcut/action item shown by [QuickDashboardShortcut].
 @immutable
 class QuickShortcutItems {
+  /// Label shown under the icon/image and used for accessibility semantics.
   final String title;
+
+  /// Material icon to show when [imagePath] is not provided.
   final IconData? icon;
+
+  /// Asset path to display via `Image.asset(...)`.
+  ///
+  /// If both [imagePath] and [icon] are provided, [imagePath] takes precedence.
   final String? imagePath;
+
+  /// Optional package name for loading an asset from a dependency package.
+  ///
+  /// Passed through to `Image.asset(..., package: imagePackage)`.
   final String? imagePackage;
+
+  /// Color for the icon/image (if the asset is tintable).
   final Color? iconColor;
+
+  /// Text color for [title].
   final Color? textColor;
+
+  /// Optional badge text. If empty, the badge is not shown.
   final String alertMessage;
+
+  /// Background color for the badge.
   final Color? alertColor;
+
+  /// Where to place the badge relative to the icon/image.
   final BadgePosition? alertPosition;
+
+  /// Extra offset applied to the badge position.
   final Offset? alertOffset;
+
+  /// Tap handler for the shortcut.
   final VoidCallback? onTap;
 
   const QuickShortcutItems({
@@ -26,18 +52,35 @@ class QuickShortcutItems {
     this.alertPosition = BadgePosition.topRight,
     this.alertOffset = Offset.zero,
     this.onTap,
-  });
+  }) : assert(
+         icon != null || imagePath != null,
+         'Provide either `icon` or `imagePath`.',
+       );
 }
 
+/// A grid of shortcut/action items with an optional section [title].
 @immutable
 class QuickDashboardShortcut extends StatelessWidget {
+  /// Section title shown above the grid.
   final String title;
+
+  /// The actions to render inside the grid.
   final List<QuickShortcutItems> actions;
+
+  /// Size used for icons and image boxes.
   final double iconSize;
+
+  /// Font size used for item titles.
   final double textSize;
-  final int crossAxisCount; // Number of items per row in the grid
-  final double spacing; // Space between items in the grid
-  final double childAspectRatio; // Width to height ratio of each grid item
+
+  /// Number of items per row in the grid.
+  final int crossAxisCount;
+
+  /// Space between items in the grid (both axes).
+  final double spacing;
+
+  /// Width/height ratio for each grid tile.
+  final double childAspectRatio;
 
   const QuickDashboardShortcut({
     super.key,
@@ -94,6 +137,7 @@ class QuickDashboardShortcut extends StatelessWidget {
   }
 }
 
+/// Badge position relative to the icon/image.
 enum BadgePosition { topLeft, topRight, bottomLeft, bottomRight }
 
 class _ActionItem extends StatelessWidget {

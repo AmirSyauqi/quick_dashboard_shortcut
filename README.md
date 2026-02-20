@@ -1,12 +1,22 @@
 # quick_dashboard_shortcut
 
-A small Flutter widget to render a grid of “quick actions” (icon or asset image) with an optional badge.
+A Flutter widget to quickly build a dashboard "shortcut" section with a title and a grid of actions (icon or asset image), with optional alert badges.
+
+<!--
+Screenshot
+1) Add a screenshot at `doc/screenshot.png`
+2) Uncomment the line below
+![Quick dashboard shortcut screenshot](doc/screenshot.png)
+-->
 
 ## Features
 
-- Grid layout via `GridView.builder`
-- Icon or `Image.asset` support
-- Optional badge (`alertMessage`) with configurable position + offset
+- Section title + actions grid
+- Control items per row (`crossAxisCount`)
+- Control spacing (`spacing`) and tile aspect ratio (`childAspectRatio`)
+- Per-item icon or asset image (`icon` / `imagePath`)
+- Optional alert badge (`alertMessage`) with custom color + position + offset
+- Theme-friendly defaults (uses `colorScheme.onSurface` as fallback)
 
 ## Usage
 
@@ -14,12 +24,18 @@ A small Flutter widget to render a grid of “quick actions” (icon or asset im
 QuickDashboardShortcut(
   title: 'Recommended',
   crossAxisCount: 4,
+  spacing: 8,
+  childAspectRatio: 1,
+  iconSize: 36,
   actions: const [
     QuickShortcutItems(title: 'Mission', icon: Icons.flag_outlined),
     QuickShortcutItems(
       title: 'Settings',
       icon: Icons.settings_outlined,
       alertMessage: 'New!',
+      alertColor: Colors.red,
+      alertPosition: BadgePosition.topRight,
+      alertOffset: Offset(0, 2),
     ),
   ],
 )
@@ -27,9 +43,32 @@ QuickDashboardShortcut(
 
 ### Using images
 
-If you use `imagePath`, the asset must be declared in your app’s `pubspec.yaml` under `flutter/assets`.
+If you use `imagePath`, the asset must be declared in your app's `pubspec.yaml` under `flutter/assets` and the path must match exactly.
 
-If the image lives in a *package* (not your app), pass `imagePackage: 'package_name'` and make sure that package includes the asset.
+```dart
+QuickShortcutItems(
+  title: 'Savings',
+  imagePath: 'assets/icons/savings.png',
+  onTap: () {},
+)
+```
+
+If the image lives in a *package* (not your app), pass `imagePackage: 'package_name'` and make sure that package includes the asset in its own `pubspec.yaml`.
+
+```dart
+QuickShortcutItems(
+  title: 'Shopping',
+  imagePath: 'assets/icons/cart.png',
+  imagePackage: 'some_dependency',
+)
+```
+
+If an asset fails to load, the widget falls back to a placeholder icon (and prints a debug message in debug builds).
+
+## Notes
+
+- This widget renders a non-scrollable `GridView` (`shrinkWrap: true`, `NeverScrollableScrollPhysics`). If you have many actions, place the whole page inside a `SingleChildScrollView` or `CustomScrollView`.
+- If you provide both `imagePath` and `icon`, `imagePath` takes precedence.
 
 ## Contributing
 

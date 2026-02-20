@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Quick Dashboard Shortcut Example'),
     );
   }
 }
@@ -38,10 +38,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(title: Text(widget.title)),
       body: Column(
         children: [
+          SizedBox(height: 26),
           QuickDashboardShortcut(
             iconSize: 36,
             title: 'Recommended',
             crossAxisCount: 4,
+            spacing: 0,
             childAspectRatio: 1,
             actions: [
               QuickShortcutItems(
@@ -52,39 +54,44 @@ class _MyHomePageState extends State<MyHomePage> {
                 alertOffset: const Offset(0, 2),
                 onTap: () => debugPrint('Mission tapped'),
               ),
+
               QuickShortcutItems(
-                title: 'Settings',
+                title: 'Savings',
                 icon: Icons.settings_outlined,
                 imagePath: 'assets/icons/ringgit.png',
                 // alertMessage: 'Huat!',
                 // /alertPosition: BadgePosition.bottomRight,
                 //alertOffset: Offset(-6, -2),
                 iconColor: Colors.green,
-                onTap: () => debugPrint('Settings tapped'),
+                onTap: () => debugPrint('Savings tapped'),
               ),
               QuickShortcutItems(
-                title: 'Settings',
-                imagePath: 'assets/icons/goals.png',
+                title: 'E-Angpou',
+                imagePath: 'assets/icons/money.png',
                 iconColor: Colors.amber,
-                onTap: () => debugPrint('Settings tapped'),
+                onTap: () => debugPrint('E-Angpou tapped'),
               ),
               QuickShortcutItems(
-                title: 'Settings',
-                imagePath: 'assets/icons/goals.png',
+                title: 'Shopping',
+                imagePath: 'assets/icons/shopping.png',
                 iconColor: Colors.amber,
-                onTap: () => debugPrint('Settings tapped'),
+                onTap: () => debugPrint('Shopping tapped'),
+              ),
+
+              QuickShortcutItems(
+                title: 'Bills',
+                imagePath: 'assets/icons/bills.png',
+                iconColor: Colors.amber,
+                onTap: () => debugPrint('Bills tapped'),
               ),
               QuickShortcutItems(
-                title: 'Settings',
-                imagePath: 'assets/icons/goals.png',
+                title: 'Invest',
+                imagePath: 'assets/icons/invest.png',
+                alertMessage: '3.00%',
+                alertPosition: BadgePosition.topRight,
+                alertOffset: const Offset(-10, 4),
                 iconColor: Colors.amber,
-                onTap: () => debugPrint('Settings tapped'),
-              ),
-              QuickShortcutItems(
-                title: 'Settings',
-                imagePath: 'assets/icons/goals.png',
-                iconColor: Colors.amber,
-                onTap: () => debugPrint('Settings tapped'),
+                onTap: () => debugPrint('Invest tapped'),
               ),
             ],
           ),
