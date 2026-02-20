@@ -2,12 +2,7 @@
 
 A Flutter widget to quickly build a dashboard "shortcut" section with a title and a grid of actions (icon or asset image), with optional alert badges.
 
-<!--
-Screenshot
-1) Add a screenshot at `doc/screenshot.png`
-2) Uncomment the line below
-![Quick dashboard shortcut screenshot](doc/screenshot.png)
--->
+![Preview](https://raw.githubusercontent.com/AmirSyauqi/quick_dashboard_shortcut/main/example/assets/screenshots/preview.png)
 
 ## Features
 
